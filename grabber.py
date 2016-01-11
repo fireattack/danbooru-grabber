@@ -9,7 +9,7 @@ status = 'not done yet'
 # change this to your danbooru folder
 # it might look something like this: '/users/YourUserName/DanbooruPics'
 # make sure the folder already exists!
-danbooru_folder = '/Users/chaoguo/gelboorupics/'
+danbooru_folder = 'C:\\test\\'
 
 # generate tag argument to be used in url and folder creation
 def generate_tag_argv(tagList):
@@ -34,31 +34,34 @@ def grabber(tag_argv,page_num):
 		if (os.path.exists(danbooru_folder+tag_argv) == False):
 			os.mkdir(danbooru_folder+tag_argv)
 
-		url = []
+	#	url = []
+		target = []
 		for post in streams:
 			if 'file_url' in post:
-				url.append(post['file_url'])
-				target = ['https://danbooru.donmai.us'+x for x in url]
+				target.append('https://danbooru.donmai.us'+post['file_url'])
 
 		# download
 		for address in target:
-			urllib.urlretrieve(address,danbooru_folder+tag_argv+'/'+address.split('/')[-1])
+			print(address)
+		#	urllib.urlretrieve(address,danbooru_folder+tag_argv+'/'+address.split('/')[-1])
+
 
 
 def main():
-	page_num = input('Enter the number of pages you want to download. To download all, simply enter a super large number:')
-	taginput = raw_input('Enter tags,separated by space:') 
-
+	#page_num = input('Enter the number of pages you want to download. To download all, simply enter a super large number:')
+	#taginput = input('Enter tags,separated by space:')
+	page_num = 1
+	taginput = 'ahegao stocking futanari'
 	n = 1
-	while n <= page_num and status == 'not done yet':
+	while n <= int(page_num) and status == 'not done yet':
 		tagList = taginput.split(' ')
 		tag_argv = generate_tag_argv(tagList)
 		grabber(tag_argv,n)
 		n = n + 1
 
 	print('Download successful!')
-	u2 = u'どうぞ、召し上がってください！'
-	print u2
+	u2 = 'どうぞ、召し上がってください！'
+	print(u2)
 
 
 if __name__ == '__main__':
